@@ -35,9 +35,14 @@ app.get('/', (req, res) => {
     res.render('index')
 }) 
 app.post('/', async (req, res) => {
-    console.log(req.body)
-    res.redirect('/')
+    const task = req.body.todotask
+
+    if (!task || task.trim() === "") {
+        console.log("Task is empty")
+        return res.redirect('/')
+    }
 })
+
 app.listen(PORT, () => {
     console.log(`Application server is running on port ${PORT}`)
 })
