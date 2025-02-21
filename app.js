@@ -36,6 +36,7 @@ app.use(express.json())
 
 app.get('/', async (req, res) => {
     const tasks = await taskmodel.find()
+    console.log(tasks);
     res.render('index')
 }) 
 app.post('/', async (req, res) => {
@@ -52,6 +53,11 @@ app.post('/', async (req, res) => {
         completed: false
     })
     await newTask.save()
+    res.redirect('/')
+})
+
+app.delete('/', async (req, res) => {
+    const task = await taskmodel.findByIdAndDelete(req.body.id)
     res.redirect('/')
 })
 
