@@ -69,7 +69,13 @@ app.post('/', async (req, res) => {
     res.redirect('/')
 })
 
-app.delete('/', async (req, res) => {
+app.put('/update/:id', async (req, res) => {
+    const taskId = await taskmodel.findById(req.params.id)
+    console.log('Update task:' + taskId);
+    res.redirect('/');
+})
+
+app.delete('/delete/:id', async (req, res) => {
     const task = await taskmodel.findByIdAndDelete(req.body.id)
     res.redirect('/')
 })
