@@ -51,11 +51,13 @@
         {{#each todos }}
         <div class="todo standard-todo">
           <li class="todo-item {{#if completed}} completed {{/if}}"> {{ title }}</li>
-          <a href="/update " class="check-btn standard-button">
+          <a href="/" class="check-btn standard-button">
             <button class="check-btn standard-button"><i class="fas fa-edit"></i></button>
           </a>
+          <a href="/update/{{_id}}">
             <button class="check-btn standard-button"><i class="fas fa-check"></i></button>
-          <a href="/delete">
+            </a>
+          <a href="/delete/{{_id}}">
             <button class="delete-btn standard-button"><i class="fas fa-trash"></i></button>
           </a>
         </div>

@@ -31,13 +31,13 @@ app.engine('hbs', exphandlebars.engine({
 app.set('view engine', 'hbs')
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.get('/', async (req, res) => {
     const tasks = await taskmodel.find()
-    console.log(tasks);
-    res.render('index', {todos: tasks})
+    // console.log(tasks);
+    res.render('index', { todos: tasks })
 })
 
 // works
@@ -60,26 +60,27 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
     const newTask = req.body.todotask
-    console.log(newTask);
+    // console.log(newTask);
     if (!newTask || newTask.trim() === "") {
         console.log("Task is empty")
         return res.redirect('/')
     }
-    await taskmodel.create({title: newTask})
+    await taskmodel.create({ title: newTask })
     res.redirect('/')
-})
+});
 
-app.put('/update/:id', async (req, res) => {
-    const taskId = await taskmodel.findById(req.params.id)
-    console.log('Update task:' + taskId);
-    res.redirect('/');
-})
+app.get('/update/:id', async (req, res) => {
+    const taskId = await taskmodel.findById(req.params.id);
+    console.log(taskId)
+    // res.redirect('/');
+    res.render('index');
+});
 
-app.delete('/delete/:id', async (req, res) => {
+app.get('/delete/:id', async (req, res) => {
     const task = await taskmodel.findByIdAndDelete(req.body.id)
     res.redirect('/')
-})
+});
 
 app.listen(PORT, () => {
     console.log(`Application server is running on port ${PORT}`)
-})
+});
