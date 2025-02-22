@@ -76,6 +76,11 @@
         <p><span id="datetime">15/02/2025, 14:34:40</span></p>
         <script src="/JS/time.js"></script>
       </div>
+      <script id="myUnOrderedList">
+        <ul class="todo-list">
+          {{#each todos}}
+        </ul>
+      </script>
       <script>
         var dt = new Date(); document.getElementById("datetime").innerHTML =
         dt.toLocaleString();

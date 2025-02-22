@@ -37,8 +37,8 @@ app.use(express.json())
 app.get('/', async (req, res) => {
     const tasks = await taskmodel.find()
     console.log(tasks);
-    res.render('index')
-}) 
+    res.render('index', {todos: tasks})
+})
 
 // works
 // app.post('/', async (req, res) => {
