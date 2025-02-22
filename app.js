@@ -39,20 +39,33 @@ app.get('/', async (req, res) => {
     console.log(tasks);
     res.render('index')
 }) 
-app.post('/', async (req, res) => {
-    const task = req.body.todotask
 
-    if (!task || task.trim() === "") {
-    //    alert("Please enter a task")
-    // return res.redirect('/?error=Please enter a task')
+// works
+// app.post('/', async (req, res) => {
+//     const task = req.body.todotask
+
+//     if (!task || task.trim() === "") {
+//     //    alert("Please enter a task")
+//     // return res.redirect('/?error=Please enter a task')
+//         console.log("Task is empty")
+//         return res.redirect('/')
+//     }
+//     const newTask = new taskmodel({
+//         title: task,
+//         completed: false
+//     })
+//     await newTask.save()
+//     res.redirect('/')
+// })
+
+app.post('/', async (req, res) => {
+    const newTask = req.body.todotask
+    console.log(newTask);
+    if (!newTask || newTask.trim() === "") {
         console.log("Task is empty")
         return res.redirect('/')
     }
-    const newTask = new taskmodel({
-        title: task,
-        completed: false
-    })
-    await newTask.save()
+    await taskmodel.create({title: newTask})
     res.redirect('/')
 })
 
