@@ -49,24 +49,40 @@
     <div id="myUnOrderedList">
       <ul class="todo-list">
         {{#each todos }}
-        <div class="todo standard-todo">
-          <li class="todo-item {{#if completed}} completed {{/if}}"> {{ title }}</li>
-          <a href="/" class="check-btn standard-button">
-            <button class="check-btn standard-button"><i class="fas fa-edit"></i></button>
-          </a>
-          <a href="/update/{{_id}}">
-            <button class="check-btn standard-button"><i class="fas fa-check"></i></button>
+        <div>
+          <div class="todo standard-todo">
+            <li class="todo-item {{#if completed}} completed {{/if}}"> {{ title }}</li>
+            <a href="/" class="check-btn standard-button">
+              <button class="check-btn standard-button edit-button"><i class="fas fa-edit"></i></button>
             </a>
-          <a href="/delete/{{_id}}">
-            <button class="delete-btn standard-button"><i class="fas fa-trash"></i></button>
-          </a>
+            <a href="/update/{{_id}}">
+              <button class="check-btn standard-button"><i class="fas fa-check"></i></button>
+            </a>
+            <a href="/delete/{{_id}}">
+              <button class="delete-btn standard-button"><i class="fas fa-trash"></i></button>
+            </a>
+          </div>
         </div>
+        <form action="/update/{{_id}}" method="post">
+          <input class="standard-input" name="updated_task" value="{{title}}" />
+          <button class="todo-btn standard-button" type="submit">Update Task</button>
+        </form>
         {{/each}}
       </ul>
-    </div>   
+    </div>
     <script>
       var dt = new Date(); document.getElementById("datetime").innerHTML =
         dt.toLocaleString();
+
+
+    const editBtn = document.querySelectorAll(".edit-button")
+    editBtn.forEach((btn) {
+      btn.addEventListener("click", function () {
+        const todoItem = btn.parentElement.parentElement.querySelector(".todo-item")
+        todoItem.contentEditable = true
+        todoItem.focus()
+      })
+    })
     </script>
   </div>
 </body>
