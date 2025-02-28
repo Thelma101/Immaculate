@@ -48,41 +48,51 @@
     </div>
     <div id="myUnOrderedList">
       <ul class="todo-list">
-        {{#each todos }}
+        {{#if empty}}
+        <li style="text-align: center; padding:20vh 0">No Task Available</li>
+        {{else}}
+        {{#each todos}}
         <div>
           <div class="todo standard-todo">
-            <li class="todo-item {{#if completed}} completed {{/if}}"> {{ title }}</li>
-            <a href="/" class="check-btn standard-button">
+            <li class="todo-item {{#if completed}}completed{{/if}}"> {{title}}</li>
+            {{!-- <a href="/" class="check-btn standard-button"> --}}
               <button class="check-btn standard-button edit-button"><i class="fas fa-edit"></i></button>
-            </a>
-            <a href="/update/{{_id}}">
-              <button class="check-btn standard-button"><i class="fas fa-check"></i></button>
+              {{!-- </a> --}}
+            <a href="/update/{{_id}}" class="check-btn standard-button action_btn">
+              {{!-- <button class="check-btn standard-button"> --}}
+                <i class="fas fa-check"></i>
+                {{!-- </button> --}}
             </a>
             <a href="/delete/{{_id}}">
               <button class="delete-btn standard-button"><i class="fas fa-trash"></i></button>
             </a>
           </div>
         </div>
-        <form action="/update/{{_id}}" method="post">
-          <input class="standard-input" name="updated_task" value="{{title}}" />
+        <form class="update-form" action="/update/{{_id}}" method="post">
+          <input type="text" class="standard-input" name="updated_task" value="{{title}}" />
           <button class="todo-btn standard-button" type="submit">Update Task</button>
         </form>
         {{/each}}
+        {{/if}}
       </ul>
     </div>
     <script>
       var dt = new Date(); document.getElementById("datetime").innerHTML =
         dt.toLocaleString();
 
+      const editBtn = document.querySelectorAll(".edit-button");
+      const updateBtn = document.querySelectorAll(".update-form");
 
-    const editBtn = document.querySelectorAll(".edit-button")
-    editBtn.forEach((btn) {
-      btn.addEventListener("click", function () {
-        const todoItem = btn.parentElement.parentElement.querySelector(".todo-item")
-        todoItem.contentEditable = true
-        todoItem.focus()
-      })
-    })
+      editBtn.forEach(((btn, index) => {
+        btn.addEventListener("click", function () {
+          updateBtn.forEach((form, formIndex) => {
+            if (formIndex != index) {
+              form.classList.remove("active");
+            }
+          });
+          updateforms[index].classList.toggle("active");
+        })
+      });
     </script>
   </div>
 </body>

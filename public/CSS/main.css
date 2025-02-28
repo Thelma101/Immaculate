@@ -414,3 +414,7 @@ form button {
 .update-form{
     display: none;
 }
+
+.update-form.active{
+    display: block;
+}
