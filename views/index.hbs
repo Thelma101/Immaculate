@@ -46,6 +46,7 @@
       <p><span id="datetime">15/02/2025, 14:34:40</span></p>
       <script src="/JS/time.js"></script>
     </div>
+
     <div id="myUnOrderedList">
       <ul class="todo-list">
         {{#if empty}}
@@ -63,35 +64,54 @@
                 <i class="fas fa-check"></i>
                 {{!-- </button> --}}
             </a>
-            <a href="/delete/{{_id}}">
-              <button class="delete-btn standard-button"><i class="fas fa-trash"></i></button>
+            <a href="/delete/{{_id}}" class="delete-btn standard-button action-btn"><i class="fas fa-trash"></i>
             </a>
           </div>
+          <div class="update-form">
+            <form action="/edit/{{_id}}" method="post">
+              <input type="text" class="standard-input" name="updated_task" value="{{title}}" />
+              <button class="update-btn standard-button" type="submit">Update Task</button>
+            </form>
+          </div>
         </div>
-        <form class="update-form" action="/update/{{_id}}" method="post">
-          <input type="text" class="standard-input" name="updated_task" value="{{title}}" />
-          <button class="todo-btn standard-button" type="submit">Update Task</button>
-        </form>
         {{/each}}
         {{/if}}
       </ul>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      var dt = new Date(); document.getElementById("datetime").innerHTML =
-        dt.toLocaleString();
+      const errorMessage = {{errorMessage}}
+      const goodAlert = Swal.fire({
+        title: 'Good job!',
+        text: 'You clicked the button!',
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      }
+      })
+      if (!goodAlert) {
+        const badAlert = Swal.fire({
+          title: 'Error!',
+          text: 'Do you want to continue',
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        })
+      }
+
+      var dt = new Date();
+      document.getElementById("datetime").innerHTML = dt.toLocaleString();
 
       const editBtn = document.querySelectorAll(".edit-button");
-      const updateBtn = document.querySelectorAll(".update-form");
+      const updateForms = document.querySelectorAll(".update-form"); // Renamed for clarity
 
-      editBtn.forEach(((btn, index) => {
+      editBtn.forEach((btn, index) => {
         btn.addEventListener("click", function () {
-          updateBtn.forEach((form, formIndex) => {
-            if (formIndex != index) {
+          updateForms.forEach((form, formIndex) => {
+            if (formIndex !== index) {
               form.classList.remove("active");
             }
           });
-          updateforms[index].classList.toggle("active");
-        })
+          updateForms[index].classList.toggle("active"); // Use the correct variable name
+        });
       });
     </script>
   </div>
