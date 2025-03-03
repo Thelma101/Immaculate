@@ -35,7 +35,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+const profile = {
+    
+}
+
 app.get('/', async (req, res) => {
+    const message = req.query?.message;
+    const error = req.query?.message;
+    console.log(`My parameters are ${message} and ${error}`)
     const tasks = await taskmodel.find();
     let empty = false;
     if (tasks.length === 0) {
@@ -67,10 +74,10 @@ app.post('/', async (req, res) => {
     // console.log(newTask);
     if (!newTask || newTask.trim() === "") {
         console.log("Task is empty")
-        return res.redirect('/')
+        return res.redirect('/?error=Please enter a task')
     }
     await taskmodel.create({ title: newTask })
-    res.redirect('/')
+    res.redirect('/?success=Task added successfully')
 });
 
 app.get('/update/:id', async (req, res) => {
@@ -82,12 +89,12 @@ app.get('/update/:id', async (req, res) => {
     const existingId = await taskmodel.findOne({ _id: taskId })
     if (!existingId) {
         console.log("Task not found");
-        return res.redirect("/");
+        return res.redirect("/?error=Task not found");
     }
 
     existingId.completed = !existingId.completed;
     await existingId.save();
-    res.redirect("/")
+    res.redirect("/?success=Task updated successfully")
 });
 
 app.post("/edit/:id", async (req, res) => {
@@ -102,26 +109,29 @@ app.post("/edit/:id", async (req, res) => {
     const { updated_task } = req.body;
     if (!updated_task || updated_task.trim() === "") {
         console.log("Task is empty");
-        return res.redirect("/");
+        return res.redirect("/?error=Please enter a task");
     }
     existingId.title = updated_task;
     await existingId.save();
-
-    res.redirect("/");
+    res.redirect("/?success=Task updated successfully");
 });
 
 app.get('/delete/:id', async (req, res) => {
     // const task = await taskmodel.findByIdAndDelete(req.body.id)
     // res.redirect('/')
-
-    const taskId = req.params.id
-    const existingId = await taskmodel.findOne({ _id: taskId })
-    if (!existingId) {
-        console.log("Task not found");
+    try {
+        const taskId = req.params.id
+        const existingId = await taskmodel.findOne({ _id: taskId })
+        if (!existingId) {
+            console.log("Task not found");
+            res.redirect("/?error=Task not found");
+        }
+        await taskmodel.findByIdAndDelete(existingId);
         res.redirect("/");
+    } catch (error) {
+        console.log(error);
+        res.redirect("/?error=Error occurred while deleting the task");
     }
-    await taskmodel.findByIdAndDelete(existingId);
-    res.redirect("/");
 });
 
 app.listen(PORT, () => {
