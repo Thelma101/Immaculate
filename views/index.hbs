@@ -59,7 +59,7 @@
             {{!-- <a href="/" class="check-btn standard-button"> --}}
               <button class="check-btn standard-button edit-button"><i class="fas fa-edit"></i></button>
               {{!-- </a> --}}
-            <a href="/update/{{_id}}" class="check-btn standard-button action_btn">
+            <a href="/update/{{_id}}" class="check-btn standard-button action-btn">
               {{!-- <button class="check-btn standard-button"> --}}
                 <i class="fas fa-check"></i>
                 {{!-- </button> --}}
@@ -80,23 +80,24 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      const errorMessage = {{errorMessage}}
-      const goodAlert = Swal.fire({
-        title: 'Good job!',
-        text: 'You clicked the button!',
+      const errorMessage = "{{ errorMessage }}";
+      Swal.fire({
+        title: 'Success',
+        text: 'Changes were successfully submitted',
         icon: 'success',
-        confirmButtonText: 'Cool'
-      }
-      })
-      if (!goodAlert) {
-        const badAlert = Swal.fire({
-          title: 'Error!',
-          text: 'Do you want to continue',
-          icon: 'error',
-          confirmButtonText: 'Cool'
-        })
-      }
-
+        confirmButtonText: 'Close'
+      }).then((result) => {
+        if (!result.isConfirmed) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Do you want to continue?',
+            icon: 'error',
+            confirmButtonText: 'Close'
+          });
+        }
+      });
+    </script>
+    <script>
       var dt = new Date();
       document.getElementById("datetime").innerHTML = dt.toLocaleString();
 

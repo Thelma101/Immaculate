@@ -380,7 +380,7 @@ form button {
 }
 
 
-.action_btn.standard-button {
+.action-btn.standard-button {
     background-color: rgb(247, 226, 223);
     color: rgb(0, 0, 0);
 }
@@ -393,7 +393,7 @@ form button {
     border-radius: 80%;
     margin: 0 5px;
 }
-.action_btn {
+.action-btn {
     border: none;
     outline: none;
     transition: box-shadow 200msease, background-color 200msease-in-out;
@@ -403,10 +403,10 @@ form button {
     text-decoration: none;
 }
 
-.action_btn:hover {
+.action-btn:hover {
     cursor: pointer;
 }
-.action_btn.standard-button:hover {
+.action-btn.standard-button:hover {
     background-color: white;
     box-shadow: #fff8 0 0 10px;
 }

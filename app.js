@@ -38,7 +38,7 @@ app.use(express.json())
 app.get('/', async (req, res) => {
     const tasks = await taskmodel.find();
     let empty = false;
-    if (task.length === 0) {
+    if (tasks.length === 0) {
         empty = true;
     }
     res.render('index', { todos: tasks, empty: empty, errorMessage: "Error Occurred" })
