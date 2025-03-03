@@ -6,7 +6,7 @@ const path = require('path');
 require('dotenv').config();
 const cors = require('cors');
 const taskmodel = require('./model/taskmodel');
-const todoroutes = require('./routes/todoroute');
+const todoroute = require('./routes/todoroute');
 const PORT = process.env.PORT || 3000
 
 app.use(cors())
@@ -34,7 +34,7 @@ app.set('view engine', 'hbs')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use('/', todoroutes);
+app.use('/', todoroute);
 
 // works
 // app.post('/', async (req, res) => {
@@ -54,13 +54,6 @@ app.use('/', todoroutes);
 //     res.redirect('/')
 // })
 
-app.post('/');
-
-app.get('/update/:id');
-
-app.post("/edit/:id");
-
-app.get('/delete/:id');
 
 app.listen(PORT, () => {
     console.log(`Application server is running on port ${PORT}`)
