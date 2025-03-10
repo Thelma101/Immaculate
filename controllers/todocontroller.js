@@ -87,12 +87,12 @@ const deleteTodo = async (req, res) => {
     // res.redirect('/')
     try {
         const taskId = req.params.id
-        const existingId = await taskmodel.findOne({ taskId })
+        const existingId = await taskmodel.findOne({ _id: taskId })
         if (!existingId) {
             console.log("Task not found");
             res.redirect("/?error=Task not found");
         }
-        await taskmodel.findByIdAndDelete(taskId);
+        await taskmodel.findByIdAndDelete(existingId);
         res.redirect("/?status=deleted");
     } catch (error) {
         console.log(error);
