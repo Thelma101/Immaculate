@@ -3,10 +3,9 @@ const app = express();
 const mongoose = require('mongoose');
 const exphandlebars = require('express-handlebars');
 const path = require('path');
+const todoroute = require('./routes/todoroute');
 require('dotenv').config();
 const cors = require('cors');
-const taskmodel = require('./model/taskmodel');
-const todoroute = require('./routes/todoroute');
 const PORT = process.env.PORT || 3000
 
 app.use(cors())
