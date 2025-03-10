@@ -102,7 +102,7 @@
       document.getElementById("datetime").innerHTML = dt.toLocaleString();
 
       const editBtn = document.querySelectorAll(".edit-button");
-      const updateForms = document.querySelectorAll(".update-form"); // Renamed for clarity
+      const updateForms = document.querySelectorAll(".update-form");
 
       editBtn.forEach((btn, index) => {
         btn.addEventListener("click", function () {
@@ -111,7 +111,7 @@
               form.classList.remove("active");
             }
           });
-          updateForms[index].classList.toggle("active"); // Use the correct variable name
+          updateForms[index].classList.toggle("active");
         });
       });
     </script>
