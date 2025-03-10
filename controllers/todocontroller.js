@@ -48,7 +48,7 @@ const updateTodo = async (req, res) => {
 
         existingId.completed = !existingId.completed;
         await existingId.save();
-        res.redirect("/?success=Task updated successfully")
+        res.redirect("/?status=completed")
     } catch (error) {
         console.log(error);
         res.redirect("/?error=Error occurred while updating the task");
@@ -93,7 +93,7 @@ const deleteTodo = async (req, res) => {
             res.redirect("/?error=Task not found");
         }
         await taskmodel.findByIdAndDelete(existingId);
-        res.redirect("/");
+        res.redirect("/?status=deleted");
     } catch (error) {
         console.log(error);
         res.redirect("/?error=Error occurred while deleting the task");
