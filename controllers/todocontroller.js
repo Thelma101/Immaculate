@@ -87,17 +87,26 @@ const deleteTodo = async (req, res) => {
     // res.redirect('/')
     try {
         const taskId = req.params.id
-        const existingId = await taskmodel.findOne({ _id: taskId })
+        const existingId = await taskmodel.findOne({ taskId })
         if (!existingId) {
             console.log("Task not found");
             res.redirect("/?error=Task not found");
         }
-        await taskmodel.findByIdAndDelete(existingId);
+        await taskmodel.findByIdAndDelete(taskId);
         res.redirect("/?status=deleted");
     } catch (error) {
         console.log(error);
         res.redirect("/?error=Error occurred while deleting the task");
     }
 }
+
+// const undoDelete = async (req, res) => {
+//     try {
+//         const task = await taskmodel.findOneAndReplace({ _id: req.params.id })
+//         res.redirect('/');
+//     } catch (error) {
+//         res.redirect('/');
+//     }
+// }
 
 module.exports = { getTodo, createTodo, updateTodo, deleteTodo, editTodo } 

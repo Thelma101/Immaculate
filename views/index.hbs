@@ -70,7 +70,9 @@
               <i class="fas fa-trash"></i>
             </a>
 
-            <a href="/" onclick="confirmDelete('<%= task._id %>')" class="delete-btn standard-button action-btn> <i class="fas fa-trash"></i></a>
+            <a href="#" onclick="confirmDelete('<%= task._id %>')" class="delete-btn standard-button action-btn">
+              <i class="fas fa-trash"></i>
+            </a>
 
           </div>
           <div class="update-form">
@@ -133,6 +135,20 @@
             title: "Success",
             text: "Task updated successfully!",
             icon: "success",
+            confirmButtonText: "OK",
+          });
+        } else if (status === "undoDelete") {
+          Swal.fire({
+            title: "Success",
+            text: "Task restored successfully!",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        } else if (status === "deleted") {
+          Swal.fire({
+            title: "Deleted",
+            text: "Task deleted successfully!",
+            icon: "warning",
             confirmButtonText: "OK",
           });
         } else if (status === "completed") {
