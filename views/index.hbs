@@ -64,11 +64,13 @@
                 <i class="fas fa-check"></i>
                 {{!-- </button> --}}
             </a>
+
+            {{!-- DELETE --}}
             <a href="/delete/{{_id}}" class="delete-btn standard-button action-btn">
               <i class="fas fa-trash"></i>
             </a>
 
-            <a href="#" onclick="confirmDelete('<%= task._id %>')"> <i class="fas fa-trash"></i></a>
+            <a href="/" onclick="confirmDelete('<%= task._id %>')" class="delete-btn standard-button action-btn> <i class="fas fa-trash"></i></a>
 
           </div>
           <div class="update-form">
