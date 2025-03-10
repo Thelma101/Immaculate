@@ -64,18 +64,15 @@
                 <i class="fas fa-check"></i>
                 {{!-- </button> --}}
             </a>
-            {{!-- <a href="/delete/{{_id}}" class="delete-btn standard-button action-btn"> --}}
-              <a href="/delete/<%= task._id %>" onclick="return confirmDelete()">
-                <i class="fas fa-trash"></i>
-              <a href="/delete/<%= task._id %>" onclick="return confirmDelete()">Delete</a>
-              </a>
+            <a href="/delete/{{_id}}" class="delete-btn standard-button action-btn">
+            <i class="fas fa-trash"></i>
+            
+            </a>
           </div>
           <div class="update-form">
             <form action="/edit/{{_id}}" method="post">
               <input type="text" class="standard-input" name="updated_task" value="{{title}}" />
-              {{!-- <button class="update-btn standard-button" type="submit">Update Task</button> --}}
-              <a href="/edit/<%= task._id %>" onclick="return confirmEdit()">Update Task</a>
-
+              <button class="update-btn standard-button" type="submit">Update Task</button>
             </form>
           </div>
         </div>
@@ -84,8 +81,7 @@
       </ul>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{!--
-    <script>
+    {{!-- <script>
       const errorMessage = "{{ errorMessage }}";
       Swal.fire({
         title: 'Success',
@@ -104,51 +100,41 @@
       });
     </script> --}}
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get("status");
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get("status");
 
-        if (status === "updated") {
-          Swal.fire({
-            title: "Success",
-            text: "Task updated successfully!",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        } else if (status === "completed") {
-          Swal.fire({
-            title: "Success",
-            text: "Task marked as complete!",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        } else if (status === "deleted") {
-          Swal.fire({
-            title: "Deleted",
-            text: "Task deleted successfully!",
-            icon: "warning",
-            confirmButtonText: "OK",
-          });
-        }
-
-        // Remove query params from URL after displaying the alert
-        if (status) {
-          window.history.replaceState(null, "", window.location.pathname);
-        }
+    if (status === "updated") {
+      Swal.fire({
+        title: "Success",
+        text: "Task updated successfully!",
+        icon: "success",
+        confirmButtonText: "OK",
       });
-    </script>
+    } else if (status === "completed") {
+      Swal.fire({
+        title: "Success",
+        text: "Task marked as complete!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } else if (status === "deleted") {
+      Swal.fire({
+        title: "Deleted",
+        text: "Task deleted successfully!",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    }
 
-    <script>
-      function confirmDelete() {
-        return confirm("Are you sure you want to delete this task?");
-      }
+    // Remove query params from URL after displaying the alert
+    if (status) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  });
+</script>
 
-      function confirmEdit() {
-        return confirm("Are you sure you want to mark this task as completed?");
-      }
-
-    </script>
 
     <script>
       var date = new Date();
