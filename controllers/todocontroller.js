@@ -72,7 +72,8 @@ const editTodo =  async (req, res) => {
         }
         existingId.title = updated_task;
         await existingId.save();
-        res.redirect("/?success=Task updated successfully");
+        // res.redirect("/?success=Task updated successfully");
+        res.redirect("/?status=updated");
     } catch (error) {
         res.status(500).json({
             error: `error message ${error}`
