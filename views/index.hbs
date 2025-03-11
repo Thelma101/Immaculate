@@ -73,7 +73,7 @@
               <i class="fas fa-trash"></i>
             </a>
 
-            <a href="/update/{{_id}}" id="completeButton" class="check-btn standard-button action-btn">
+            <a href="/updates/{{_id}}" id="completeButton" class="check-btn standard-button action-btn">
               <i class="fas fa-check"></i>
             </a>
             <button id="completeButton-{{_id}}" class="check-btn standard-button action-btn">
@@ -113,54 +113,64 @@
     </script> --}}
 
 
+<button id="completeButton-{{_id}}" class="check-btn standard-button action-btn">
+  <i class="fas fa-check"></i>
+</button>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const completeButton = document.getElementById('completeButton-{{_id}}');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const completeButton = document.getElementById('completeButton-{{_id}}');
+    console.log('Button:', completeButton); // Debugging step
 
-        completeButton.addEventListener('click', async () => {
-          const isCompleted = completeButton.classList.contains('completed');
+    if (completeButton) {
+      completeButton.addEventListener('click', async () => {
+        console.log('Button clicked!'); // Debugging step
 
-          if (isCompleted) {
-            // Undo completion logic
-            const { isConfirmed } = await Swal.fire({
-              title: 'Are you sure?',
-              text: 'Do you want to undo the completion?',
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonText: 'Yes, undo',
-              cancelButtonText: 'No, cancel'
-            });
+        const isCompleted = completeButton.classList.contains('completed');
 
-            if (isConfirmed) {
-              const response = await fetch(`/update/{{_id}}`, { method: 'GET' });
-              if (response.ok) {
-                await Swal.fire('Undone!', 'The task completion has been undone.', 'success');
-                completeButton.classList.remove('completed');
-              }
-            }
-          } else {
-            // Mark as completed logic
-            const { isConfirmed } = await Swal.fire({
-              title: 'Are you sure?',
-              text: 'Do you want to mark this as completed?',
-              icon: 'question',
-              showCancelButton: true,
-              confirmButtonText: 'Yes, mark as completed',
-              cancelButtonText: 'No, cancel'
-            });
+        if (isCompleted) {
+          // Undo completion logic
+          const { isConfirmed } = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to undo the completion?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, undo',
+            cancelButtonText: 'No, cancel'
+          });
 
-            if (isConfirmed) {
-              const response = await fetch(`/update/{{_id}}`, { method: 'GET' });
-              if (response.ok) {
-                await Swal.fire('Completed!', 'The task has been marked as completed.', 'success');
-                completeButton.classList.add('completed');
-              }
+          if (isConfirmed) {
+            const response = await fetch(`/updates/{{_id}}`, { method: 'GET' });
+            if (response.ok) {
+              await Swal.fire('Undone!', 'The task completion has been undone.', 'success');
+              completeButton.classList.remove('completed');
             }
           }
-        });
+        } else {
+          // Mark as completed logic
+          const { isConfirmed } = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to mark this as completed?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, mark as completed',
+            cancelButtonText: 'No, cancel'
+          });
+
+          if (isConfirmed) {
+            const response = await fetch(`/updates/{{_id}}`, { method: 'GET' });
+            if (response.ok) {
+              await Swal.fire('Completed!', 'The task has been marked as completed.', 'success');
+              completeButton.classList.add('completed');
+            }
+          }
+        }
       });
-    </script>
+    } else {
+      console.error('Button not found!'); // Debugging step
+    }
+  });
+</script>
 
     <script>
       function confirmDelete(taskId) {

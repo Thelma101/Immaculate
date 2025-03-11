@@ -8,6 +8,6 @@ router.post('/', createTodo);
 router.get('/update/:id', updateTodo);
 router.post('/edit/:id', editTodo);
 router.get('/delete/:id', deleteTodo);
-router.get('/update-status/:id', updates);
+router.get('/updates/:id', updates);
 
 module.exports = router;
