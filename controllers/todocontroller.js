@@ -84,21 +84,25 @@ const editTodo = async (req, res) => {
 
 const updates = async (req, res) => {
     try {
-        const taskId = req.params.id;
-        const { completed } = req.body; // Get new status from request
-
-        const task = await taskmodel.findById(taskId);
-        if (!task) return res.status(404).json({ success: false, message: "Task not found" });
-
-        task.completed = completed; // Update task status
-        await task.save();
-
-        res.json({ success: true });
+      const taskId = req.params.id;
+      const existingId = await taskmodel.findOne({ _id: taskId });
+  
+      if (!existingId) {
+        console.log("Task not found");
+        return res.status(404).json({ success: false, message: 'Task not found' });
+      }
+  
+      // Toggle the completed status
+      existingId.completed = !existingId.completed;
+      await existingId.save();
+  
+      // Send a JSON response for the frontend to handle
+      res.json({ success: true, completed: existingId.completed });
     } catch (error) {
-        console.error("Update Error:", error);
-        res.status(500).json({ success: false, message: "Server error" });
+      console.log(error);
+      res.status(500).json({ success: false, message: 'Error occurred while updating the task' });
     }
-};
+  };
 
 const deleteTodo = async (req, res) => {
     // const task = await taskmodel.findByIdAndDelete(req.body.id)
