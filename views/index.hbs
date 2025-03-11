@@ -43,7 +43,8 @@
         </svg></a>
     </div>
     <div>
-      <p><span id="datetime">15/02/2025, 14:34:40</span></p>
+      {{!-- <p><span id="datetime">15/02/2025, 14:34:40</span></p> --}}
+      <p><span id="datetime">{{date}}</span></p>
       <script src="/JS/time.js"></script>
     </div>
 
@@ -59,24 +60,25 @@
             {{!-- <a href="/" class="check-btn standard-button"> --}}
               <button class="check-btn standard-button edit-button"><i class="fas fa-edit"></i></button>
               {{!-- </a> --}}
-            <button id="completeButton-{{_id}}" class="check-btn standard-button action-btn">
+            {{!-- <button id="completeButton-{{_id}}" class="check-btn standard-button action-btn">
               <i class="fas fa-check"></i>
-            </button>
-            <a href="/update/{{_id}}" class="check-btn standard-button action-btn">
-              {{!-- <button class="check-btn standard-button"> --}}
-                <i class="fas fa-check"></i>
-                {{!-- </button> --}}
-            </a>
+            </button> --}}
+
+            {{!-- <a href="/update/{{_id}}" class="check-btn standard-button action-btn">
+              <i class="fas fa-check"></i>
+            </a> --}}
 
             {{!-- DELETE --}}
             <a href="/delete/{{_id}}" class="delete-btn standard-button action-btn">
               <i class="fas fa-trash"></i>
             </a>
 
+            <a href="/update/{{_id}}" id="completeButton" class="check-btn standard-button action-btn">
+              <i class="fas fa-check"></i>
+            </a>
             <button id="completeButton-{{_id}}" class="check-btn standard-button action-btn">
               <i class="fas fa-check"></i>
             </button>
-
           </div>
           <div class="update-form">
             <form action="/edit/{{_id}}" method="post">
@@ -211,7 +213,7 @@
             icon: "success",
             confirmButtonText: "OK",
           });
-        } else if (status === "deleted") {
+        } else if (status === "confirmUndoComplete") {
           Swal.fire({
             title: "Deleted",
             text: "Task deleted successfully!",

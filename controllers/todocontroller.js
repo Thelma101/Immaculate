@@ -96,7 +96,7 @@ const updates = async (req, res) => {
       existingId.completed = !existingId.completed;
       await existingId.save();
   
-      // Send a JSON response for the frontend to handle
+      // Send a JSON response with the updated status
       res.json({ success: true, completed: existingId.completed });
     } catch (error) {
       console.log(error);
