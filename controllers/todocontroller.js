@@ -55,7 +55,7 @@ const updateTodo = async (req, res) => {
     }
 }
 
-const editTodo =  async (req, res) => {
+const editTodo = async (req, res) => {
     try {
         const taskId = req.params.id;
         const existingId = await taskmodel.findOne({ _id: taskId })
@@ -82,6 +82,24 @@ const editTodo =  async (req, res) => {
     }
 }
 
+const updates = async (req, res) => {
+    try {
+        const taskId = req.params.id;
+        const { completed } = req.body; // Get new status from request
+
+        const task = await taskmodel.findById(taskId);
+        if (!task) return res.status(404).json({ success: false, message: "Task not found" });
+
+        task.completed = completed; // Update task status
+        await task.save();
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Update Error:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
 const deleteTodo = async (req, res) => {
     // const task = await taskmodel.findByIdAndDelete(req.body.id)
     // res.redirect('/')
@@ -100,4 +118,4 @@ const deleteTodo = async (req, res) => {
     }
 }
 
-module.exports = { getTodo, createTodo, updateTodo, deleteTodo, editTodo } 
+module.exports = { getTodo, createTodo, updateTodo, deleteTodo, editTodo, updates }

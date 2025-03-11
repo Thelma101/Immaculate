@@ -69,7 +69,10 @@
             <a href="/delete/{{_id}}" class="delete-btn standard-button action-btn">
               <i class="fas fa-trash"></i>
             </a>
-            
+
+            <a href="#" onclick="markCompleted('<%= task._id %>', <%= task.completed %>)" class="complete-btn">
+              <i class="fas fa-check"></i>
+            </a>
 
           </div>
           <div class="update-form">
