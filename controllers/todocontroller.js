@@ -100,13 +100,4 @@ const deleteTodo = async (req, res) => {
     }
 }
 
-// const undoDelete = async (req, res) => {
-//     try {
-//         const task = await taskmodel.findOneAndReplace({ _id: req.params.id })
-//         res.redirect('/');
-//     } catch (error) {
-//         res.redirect('/');
-//     }
-// }
-
 module.exports = { getTodo, createTodo, updateTodo, deleteTodo, editTodo } 
