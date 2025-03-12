@@ -125,7 +125,6 @@
     if (completeButton) {
       completeButton.addEventListener('click', async () => {
         console.log('Button clicked!'); // Debugging step
-
         const isCompleted = completeButton.classList.contains('completed');
 
         if (isCompleted) {
@@ -141,6 +140,7 @@
 
           if (isConfirmed) {
             const response = await fetch(`/updates/{{_id}}`, { method: 'GET' });
+            console.log('Fetch URL:', `/updates/${completeButton.id.replace('completeButton-', '')}`);
             if (response.ok) {
               await Swal.fire('Undone!', 'The task completion has been undone.', 'success');
               completeButton.classList.remove('completed');
@@ -159,6 +159,7 @@
 
           if (isConfirmed) {
             const response = await fetch(`/updates/{{_id}}`, { method: 'GET' });
+            console.log('response:' response)
             if (response.ok) {
               await Swal.fire('Completed!', 'The task has been marked as completed.', 'success');
               completeButton.classList.add('completed');

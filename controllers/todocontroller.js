@@ -85,6 +85,8 @@ const editTodo = async (req, res) => {
 const updates = async (req, res) => {
     try {
       const taskId = req.params.id;
+      console.log('Updates route called with ID:', taskId); // Debugging step
+  
       const existingId = await taskmodel.findOne({ _id: taskId });
   
       if (!existingId) {
